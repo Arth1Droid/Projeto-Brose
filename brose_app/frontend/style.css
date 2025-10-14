@@ -3,7 +3,8 @@ Aqui vai todos os caminhos das páginas separadas, usar nomeclatura padrão nas 
 class = "landpage_main"
 */
 
-@import url('/brose_app/frontend/style/landpage.css');
+@import url('/brose_app/frontend/style/homepage.css');
 @import url('/brose_app/frontend/style/global.css');
 @import url('/brose_app/frontend/style/footer.css');
 @import url('/brose_app/frontend/style/header.css');
+@import url('/brose_app/frontend/style/index.css');
