@@ -6,51 +6,87 @@
     <title>Homepage</title>
     <link rel="stylesheet" href="../style.css" />
   </head>
-  <body class="homepage_body">
-    <header></header>
-    <img
+  <body>
+
+    <!-- HEADER BROSE -->
+    <header>
+       <img
       class="homepage_logotipo"
       src="../pictures/logotipo.svg"
       alt="logotipo"
     />
-    <div class="homepage_options">
-      <form action="#" method="get" class="homepage_search_form">
-        <input
-          type="text"
-          name="search"
-          placeholder="Pesquisar..."
-          class="homepage_search_input"
-        />
-        <button type="submit" class="homepage_search_button">
-          <img src="../pictures/homepage_lupa.svg" alt="lupa" />
-        </button>
-      </form>
-      <button type="button" class="homepage_add">
-        <img src="../pictures/homepage_button_plus.svg" alt="" />
-      </button>
-    </div>
-    <section class="homepage_lista">
-      <h2>Produtos Cadastrados</h2>
-      <div class="homepage_lista_produtos">
-        <div class="homepage_produto">
-          <span>aaaaaa</span>
-        </div>
-        <div class="homepage_produto">
-          <span>aaaaaa</span>
-        </div>
-        <div class="homepage_produto">
-          <span>aaaaaa</span>
-        </div>
-        <div class="homepage_produto">
-          <span>aaaaaa</span>
-        </div>
-        <div class="homepage_produto">
-          <span>aaaaaa</span>
-        </div>
-        <div class="homepage_produto">
-          <span>aaaaaa</span>
-        </div>
+    </header>
+
+
+    <!-- CASO QUEIRA CENTRALIZAR A PAGINA AO CENTR0 SÓ USAR ESSA CLASSE ABAIXO -->
+    <div class="homepage_body">
+ 
+    <!-- INFORMAÇOES DA PAGINA  -->
+      <div class="info">
+        <h1>Produtos Cadastrados</h1>
+        <p>Gerencie e visualize todos os produtos do sistema.</p>
       </div>
-    </section>
+      
+
+      <!-- bARRA DE PESQUISA, ADIÇÃO E GERAR RELATORIOIS -->
+      <div class="homepage_options">
+        <!-- PESQUISA  -->
+        <form action="#" method="get" class="homepage_search_form">
+          <input
+            type="text"
+            name="q"
+            placeholder="Pesquisar..."
+            class="homepage_search_input"
+          />
+          <button type="submit" class="homepage_search_button">
+            <img src="../pictures/homepage_lupa.svg" alt="lupa" />
+          </button>
+        </form>
+
+        <!-- ENVIAR  -->
+        <button type="button" class="homepage_add">
+          <img src="../pictures/homepage_button_plus.svg" alt="" />
+        </button>
+
+        <!-- GERAR  -->
+        <button type="button" class="red-button">Gerar Relatorio</button>
+      </div>
+
+      <!-- GRID PRINCIPAL -->
+      <main class="grid-main">
+
+        <!-- CLASSE DE ITEMS  -->
+        <div class="items">
+          <h2>Alicate</h2>
+          <p>Ferramenta</p>
+          <div class="buttons-main">
+            <button type="button" class="detail-button">Ver Detalhes</button>
+            <button type="button" class="red-button">Excluir</button>
+          </div>
+        </div>
+
+        <div class="items">
+          <h2>Martelo</h2>
+          <p>Ferramenta</p>
+          <div class="buttons-main">
+            <button type="button" class="detail-button">Ver Detalhes</button>
+            <button type="button" class="red-button">Excluir</button>
+          </div>
+        </div>
+
+      </main>
+    
+
+      <!-- MENSAGEM OCULTA -->
+      <section class="notfound-item">
+        <img src="../pictures/status-error-filled-svgrepo-com.svg" alt="" id="notfound-img">
+        <h2 id="notfound-message">Nenhuma peça foi encontrada. :(</h2>
+      </section>
+
+      
+   
+    </div>
+    
+    <script src="../scripts/homepage.js"></script>
   </body>
 </html>
