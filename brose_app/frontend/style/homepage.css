@@ -1,0 +1,102 @@
+.homepage_body {
+padding: 40px;
+}
+
+
+.homepage_options {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 30px;
+}
+
+.homepage_search_form {
+  background-color: white;
+  border: 1px solid black;
+  border-radius: 5px;
+  display: flex;
+  align-content: center;
+  justify-content: space-between;
+  width: 90%;
+  padding: 0px 10px;
+}
+
+.homepage_search_form input,
+button {
+  border: none;
+  background-color: none;
+}
+
+.homepage_search_form button {
+  background: none;
+  cursor: pointer;
+}
+
+.homepage_search_form input {
+  width: 90%;
+}
+
+.homepage_search_form :focus {
+  outline: none;
+}
+
+.homepage_add {
+  background: none;
+}
+
+.grid-main{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 50px;
+  padding-top: 20px;
+}
+
+.items{
+  border: 1px solid black;
+  border-radius: 10px;
+  padding: 15px;
+  transition: transform 0.3s ease;
+
+}
+.items:hover{
+  transform: scale(1.1);
+}
+
+.buttons-main{
+  margin-top: 20px;
+}
+.detail-button{
+  border: 1px solid #C50023 ;
+  border-radius: 4px;
+  padding: 10px;
+  color: #C50023;
+  background-color: #FFFFFF;
+
+}
+.red-button{
+  border: 1px solid #FFFFFF ;
+  border-radius: 4px;
+  padding: 10px;
+  color:#FFFFFF;
+  background-color: #C50023;
+
+}
+
+.notfound-item{
+  display: none; /* começa invisível */
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 50px;
+}
+#notfound-message{
+  color: #D3D3D3;
+  text-align: center;
+}
+#notfound-img{
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 10px;
+}
+
+
