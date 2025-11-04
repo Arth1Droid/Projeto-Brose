@@ -1,0 +1,78 @@
+
+/* Garante que o body cobre toda a tela */
+html, body {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+}
+
+/* Fundo Escuro do Modal (Overlay) */
+.modal-overlay {
+    display: none; 
+    position: fixed; /* Garante que ele flutua sobre tudo */
+    top: 0;
+    left: 0;
+    width: 100vw;   /* 100% da largura da viewport */
+    height: 100vh;  /* 100% da altura da viewport */
+    background-color: rgba(0, 0, 0, 0.7); 
+    z-index: 1000; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+/* Classe para mostrar o modal com transição */
+.modal-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+/*conteudo central (caixa branca) */
+.modal-content{
+    background-color: white;
+    padding: 40px 60px;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0,0,0, 0.2);
+    text-align: center;
+    /*Garante que modal não seja tão largo em telas grandes: */
+    max-width: 400px;
+    width: 90%;
+    transform: scale(0.9);
+    transition: transform 0.3s ease;
+}
+
+.modal-overlay.active .modal-content {
+    transform: scale(1);
+}
+
+/* Estilo do Círculo Vermelho Central */
+.modal-icon-container {
+    width: 60px;
+    height: 60px;
+    background-color: #d90000; /* Cor vermelha forte */
+    border-radius: 50%; /* Faz o círculo */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto 20px auto; /* Centraliza e adiciona margem inferior */
+}
+
+/* Ícone SVG (o 'V' branco) */
+.modal-icon {
+    width: 32px;
+    height: 32px;
+}
+
+/* Texto de Sucesso */
+.modal-message {
+    font-family: sans-serif;
+    font-size: 1.1em; /* Tamanho da fonte levemente maior */
+    font-weight: 600; /* Negrito sutil */
+    color: #333; /* Cor escura para o texto */
+    margin: 0;
+}

@@ -8,3 +8,4 @@ class = "landpage_main"
 @import url('/brose_app/frontend/style/footer.css');
 @import url('/brose_app/frontend/style/header.css');
 @import url('/brose_app/frontend/style/index.css');
+@import url('/brose_app/frontend/style/modal.css')
