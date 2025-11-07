@@ -99,6 +99,28 @@
                 </p>
             </div>
         </div>
+        <!-- Modal de Cadastro de Produto -->
+      <div id="cadastroModal" class="modal">
+        <div class="modal-content">
+          <button class="close-btn" id="closeModal">&times;</button>
+          <h2>Cadastrar Novo Produto</h2>
+          <p class="subtitle">Preencha as informações do produto</p>
+
+          <form id="productForm">
+            <label for="productName">Nome do Produto</label>
+            <input type="text" id="productName" placeholder="Digite o nome do produto" required />
+
+            <label for="productDesc">Descrição</label>
+            <input type="text" id="productDesc" placeholder="Digite uma breve descrição do produto" required />
+
+            <div class="buttons">
+              <button type="button" class="cancel-btn">Cancelar</button>
+              <button type="submit" class="continue-btn">Continuar</button>
+            </div>
+          </form>
+        </div>
+      </div>
+        
     
     <script src="../scripts/homepage.js"></script>
     <script src="../scripts/modal.js"></script>

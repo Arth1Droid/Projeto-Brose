@@ -76,3 +76,143 @@ html, body {
     color: #333; /* Cor escura para o texto */
     margin: 0;
 }
+
+/* style do modal de cadastro *************finalizado************/
+/* ======== Estilo geral do modal ======== */
+.modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  transition: opacity 0.3s ease;
+}
+
+.modal.active {
+  display: flex;
+  animation: fadeIn 0.3s ease forwards;
+}
+
+/* ======== Conteúdo interno ======== */
+.modal-content {
+  background: #fff;
+  padding: 30px 40px;
+  border-radius: 12px;
+  width: 420px;
+  max-width: 90%;
+  position: relative;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
+  font-family: "Poppins", sans-serif;
+}
+
+/* ======== Cabeçalho ======== */
+.modal-content h2 {
+  font-size: 22px;
+  font-weight: 700;
+  color: #111;
+  margin-bottom: 5px;
+}
+
+.modal-content .subtitle {
+  font-size: 15px;
+  color: #666;
+  margin-bottom: 20px;
+}
+
+/* ======== Fechar botão (X) ======== */
+.close-btn {
+  position: absolute;
+  right: 16px;
+  top: 14px;
+  border: none;
+  background: transparent;
+  color: #900;
+  font-size: 22px;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+.close-btn:hover {
+  transform: scale(1.1);
+}
+
+/* ======== Inputs ======== */
+.modal-content label {
+  font-size: 14px;
+  color: #333;
+  font-weight: 600;
+  display: block;
+  margin-bottom: 6px;
+  text-align: left;
+  width: 100%;
+}
+
+.modal-content input {
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1.5px solid #ccc;
+  font-size: 14px;
+  color: #333;
+  margin-bottom: 18px;
+  transition: border-color 0.2s ease;
+}
+
+.modal-content input:focus {
+  outline: none;
+  border-color: #b60000;
+}
+
+/* ======== Botões ======== */
+.buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+  gap: 10px;
+}
+
+.cancel-btn,
+.continue-btn {
+  flex: 1;
+  font-size: 15px;
+  padding: 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.2s ease;
+}
+
+/* Botão Cancelar */
+.cancel-btn {
+  background-color: transparent;
+  border: 1.5px solid #d00;
+  color: #d00;
+}
+
+.cancel-btn:hover {
+  background-color: #fceaea;
+}
+
+/* Botão Continuar */
+.continue-btn {
+  background-color: #b60000;
+  color: #fff;
+  border: none;
+}
+
+.continue-btn:hover {
+  background-color: #8c0000;
+}
+
+/* ======== Animação de entrada ======== */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
