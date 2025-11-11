@@ -188,7 +188,7 @@ editButton.addEventListener('click', (e) => {
   } else {
     const controls = document.querySelector('.contador-controles');
     if (controls) controls.remove();
-    editButton.style.opacity = "1";
+    editButton.style.opacity = "20";
   }
 });
 

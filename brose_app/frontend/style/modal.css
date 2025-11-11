@@ -268,7 +268,7 @@ html, body {
 
 .quadroContador {
   background-color: #d90000;
-  border-radius: 8px;
+  border-radius: 15px;
   padding: 10px;
   cursor: pointer;
   transition: background 0.2s ease;
