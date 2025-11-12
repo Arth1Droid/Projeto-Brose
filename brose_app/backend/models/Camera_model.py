@@ -1,4 +1,6 @@
-from models.database import db
+from backend.models.database import db
+
+#potencialmente desnecessário
 
 class Camera(db.Model):
     id_camera = db.Column(db.Integer, primary_key=True)
