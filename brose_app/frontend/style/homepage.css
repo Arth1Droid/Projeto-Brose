@@ -6,6 +6,7 @@ padding: 40px;
 .homepage_options {
   width: 100%;
   display: flex;
+  gap: 15px;
   justify-content: space-between;
   margin-top: 30px;
 }
@@ -17,7 +18,7 @@ padding: 40px;
   display: flex;
   align-content: center;
   justify-content: space-between;
-  width: 90%;
+  width: 80%;
   padding: 0px 10px;
 }
 
@@ -65,21 +66,38 @@ button {
 .buttons-main{
   margin-top: 20px;
 }
-.detail-button{
-  border: 1px solid #C50023 ;
-  border-radius: 4px;
-  padding: 10px;
-  color: #C50023;
-  background-color: #FFFFFF;
 
+.white-btn,
+.red-btn {
+  flex: 1;
+  font-size: 15px;
+  padding: 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.2s ease;
 }
-.red-button{
-  border: 1px solid #FFFFFF ;
-  border-radius: 4px;
-  padding: 10px;
-  color:#FFFFFF;
-  background-color: #C50023;
 
+/* Botão Cancelar */
+.white-btn {
+  background-color: transparent;
+  border: 1.5px solid #d00;
+  color: #d00;
+}
+
+.white-btn:hover {
+  background-color: #fceaea;
+}
+
+/* Botão Continuar */
+.red-btn {
+  background-color: #b60000;
+  color: #fff;
+  border: none;
+}
+
+.red-btn:hover {
+  background-color: #8c0000;
 }
 
 .notfound-item{

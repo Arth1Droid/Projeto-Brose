@@ -172,38 +172,6 @@ html, body {
   gap: 10px;
 }
 
-.cancel-btn,
-.continue-btn {
-  flex: 1;
-  font-size: 15px;
-  padding: 10px;
-  border-radius: 8px;
-  cursor: pointer;
-  font-weight: 600;
-  transition: all 0.2s ease;
-}
-
-/* Botão Cancelar */
-.cancel-btn {
-  background-color: transparent;
-  border: 1.5px solid #d00;
-  color: #d00;
-}
-
-.cancel-btn:hover {
-  background-color: #fceaea;
-}
-
-/* Botão Continuar */
-.continue-btn {
-  background-color: #b60000;
-  color: #fff;
-  border: none;
-}
-
-.continue-btn:hover {
-  background-color: #8c0000;
-}
 
 /* ======== Animação de entrada ======== */
 @keyframes fadeIn {
@@ -311,4 +279,7 @@ html, body {
 }
 .edit-bottom-contabiliza {
     background-color: #d90000;
+}
+.clear-history-btn{
+  
 }

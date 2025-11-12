@@ -28,8 +28,8 @@ document.addEventListener('DOMContentLoaded', function () {
     const modalSucesso = document.getElementById('successModal');   // Modal de sucesso
     const form = document.getElementById('productForm');
     const closeBtn = document.getElementById('closeModal');
-    const cancelBtn = document.querySelector('.cancel-btn');
-    const addButton = document.querySelector('.homepage_add');
+    const cancelBtn = document.querySelector('#cancel-btn');
+    const addButton = document.querySelector('#homepage-add');
     const itemsContainer = document.querySelector('.grid-main');
     const notFoundDiv = document.querySelector('.notfound-item');
     const searchInput = document.querySelector('input[name="q"]');
@@ -86,8 +86,8 @@ function addNewProduct(name, descricao) {
             <h2>${name}</h2>
             <p>${descricao}</p>
             <div class="buttons-main">
-                <button type="button" class="detail-button">Ver Detalhes</button>
-                <button type="button" class="red-button">Excluir</button>
+                <button type="button" class="white-btn" id="detail-button">Ver Detalhes</button>
+                <button type="button" class="red-btn">Excluir</button>
             </div>
         `;
 
@@ -198,7 +198,7 @@ document.addEventListener('DOMContentLoaded', carregarEstado);
 
     // Função para exibir detalhes do produto
     function attachDetailListeners() {
-    const detailButtons = document.querySelectorAll('.detail-button');
+    const detailButtons = document.querySelectorAll('#detail-button');
     const detailModal = document.getElementById('detailModal');
     const closeDetailModal = document.getElementById('closeDetailModal');
     const historicoList = document.getElementById('historico-list');
