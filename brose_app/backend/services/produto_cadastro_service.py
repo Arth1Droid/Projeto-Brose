@@ -1,5 +1,5 @@
 from ..models.database import db
-from backend.models.Produto_model import Produto
+from ..models.Produto_model import Produto
 
 
 def cadastrar_produto(dados: dict):
@@ -7,8 +7,6 @@ def cadastrar_produto(dados: dict):
     nome = dados.get('nome')
     quantidade = dados.get('quantidade', 0)
     descricao = dados.get('descricao', '')
-
-    #os campos obrigatórios devem ser tratados já no front. Tô botando observação pra lembrar de dizer isso.
 
     novo_produto = Produto(
         nome=nome,
@@ -24,4 +22,3 @@ def cadastrar_produto(dados: dict):
 
 def editar_quantidade(dados: dict):
     """Função responsável por editar quantidades no banco de dados"""
-    

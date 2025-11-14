@@ -1,4 +1,4 @@
-from backend.models.database import db
+from .database import db
 
 class Produto(db.Model):
     __tablename__ = 'produto' 
@@ -8,7 +8,6 @@ class Produto(db.Model):
     quantidade = db.Column(db.Integer)
     descricao = db.Column(db.String(100))
 
-    # relacionamento com a tabela 'registra'
     registros = db.relationship('Registra', backref='produto', lazy=True)
 
     def to_json(self):
