@@ -74,7 +74,7 @@ function addNewProduct(name, descricao) {
 
     if (itemExistente) {
         // Se já existe, apenas exibe alerta e não adiciona novamente
-        alert("Este produto já está cadastrado!");
+        alert("Erro: Este produto já foi cadastrado!");
         return; // interrompe a execução da função
     } else {
         // Criar novo item com contador inicial 1
@@ -137,11 +137,15 @@ function carregarEstado() {
     // Atualiza histórico
 function atualizarHistorico() {
   historicoList.innerHTML = '';
-  const hoje = new Date().toLocaleDateString('pt-BR', { 
-    day: '2-digit', 
-    month: 'long', 
-    year: 'numeric' 
-  });
+    const agora = new Date();
+    const hoje = agora.toLocaleDateString('pt-BR', {
+        day: '2-digit',
+        month: 'long',
+        year: 'numeric'
+    }) + ' - ' + agora.toLocaleTimeString('pt-BR', {
+        hour: '2-digit',
+        minute: '2-digit'
+});
 
   for (let i = 0; i < contador; i++) {
     const li = document.createElement('li');
@@ -152,44 +156,70 @@ function atualizarHistorico() {
   salvarEstado();
 }
 
-    // Botão de editar (ativar/desativar modo edição)
-editButton.addEventListener('click', (e) => {
-  e.preventDefault();
-  editMode = !editMode;
+        // Botão de editar (ativar/desativar modo edição)
+    editButton.addEventListener('click', (e) => {
+        e.preventDefault();
+        editMode = !editMode;
 
-  if (editMode) {
-    // Criar controles se não existirem
-    if (!document.querySelector('.contador-controles')) {
-      const controls = document.createElement('div');
-      controls.classList.add('contador-controles');
-      controls.innerHTML = `
-        <button id="menos" class="btn-control">-</button>
-        <button id="mais" class="btn-control">+</button>
+        if (editMode) {
+                // Criar controles se não existirem
+            if (!document.querySelector('.contador-controles')) {
+            const controls = document.createElement('div');
+            controls.classList.add('contador-controles');
+            controls.innerHTML = `
+                <button id="menos" class="btn-control">-</button>
+                <button id="mais" class="btn-control">+</button>
       `;
       contadorBox.appendChild(controls);
 
-      // Eventos dos botões
-      document.getElementById('mais').addEventListener('click', () => {
+        // Eventos dos botões
+document.getElementById('mais').addEventListener('click', () => {
         contador++;
         contadorSpan.textContent = contador;
-        atualizarHistorico();
+
+        // histórico apenas para mostrar a ação se foi ou não adicionado
+        const agora = new Date();
+        const hoje = agora.toLocaleDateString('pt-BR', {
+          day: '2-digit', month: 'long', year: 'numeric'
+        }) + ' - ' + agora.toLocaleTimeString('pt-BR', {
+          hour: '2-digit', minute: '2-digit'
+        });
+
+        const li = document.createElement('li');
+        li.innerHTML = `<span>${hoje}</span><span>+1</span>`;
+        historicoList.appendChild(li);
+
+        salvarEstado();
       });
 
-      document.getElementById('menos').addEventListener('click', () => {
+document.getElementById('menos').addEventListener('click', () => {
         if (contador > 0) {
           contador--;
           contadorSpan.textContent = contador;
-          atualizarHistorico();
+
+          // apresenta a entrada que foi acionada no histórico removido a parte de excluir o ultimo histórico;
+          const agora = new Date();
+          const hoje = agora.toLocaleDateString('pt-BR', {
+            day: '2-digit', month: 'long', year: 'numeric'
+          }) + ' - ' + agora.toLocaleTimeString('pt-BR', {
+            hour: '2-digit', minute: '2-digit'
+          });
+
+          const li = document.createElement('li');
+          li.innerHTML = `<span>${hoje}</span><span>-1</span>`;
+          historicoList.appendChild(li);
+
+          salvarEstado();
         }
       });
     }
 
-    editButton.style.opacity = "0.6";
-  } else {
-    const controls = document.querySelector('.contador-controles');
-    if (controls) controls.remove();
-    editButton.style.opacity = "20";
-  }
+            editButton.style.opacity = "0.6";
+        } else {
+            const controls = document.querySelector('.contador-controles');
+            if (controls) controls.remove();
+            editButton.style.opacity = "20";
+        }
 });
 
     // Carrega dados do produto assim que o modal for aberto
@@ -232,20 +262,17 @@ document.addEventListener('DOMContentLoaded', carregarEstado);
         year: 'numeric' 
     });
 
-    if (acao === '+') {
-        // ao incrementar: adiciona uma entrada ao histórico com o total atual
+        if (acao === '+') {
         produto.historico.push({
             data: hoje,
-            total: produto.quantidade
+            total: '+1'
         });
-    } else if (acao === '-') {
-        // ao decrementar: remove a última entrada do histórico (se existir)
-        if (produto.historico.length > 0) {
-            produto.historico.pop();
-        }
-    } else {
-        // sem ação: não altera o array
-    }
+        } else if (acao === '-') {
+        produto.historico.push({
+            data: hoje,
+            total: '-1'
+    });
+}
 
     salvarDados(dados);
     renderHistorico();
@@ -371,10 +398,19 @@ document.addEventListener('DOMContentLoaded', carregarEstado);
                         const dados = carregarDados();
                         dados[produtoAtual].quantidade++;
                         salvarDados(dados);
-                        atualizarContador(dados[produtoAtual].quantidade);
-                        atualizarHistorico('+'); // <-- adiciona entrada
-                    });
+                        atualizarContador(dados[produtoAtual].quantidade); // <-- adiciona entrada
+                        const agora = new Date();
+                        const hoje = agora.toLocaleDateString('pt-BR', {
+                        day: '2-digit', month: 'long', year: 'numeric'
+                        }) + ' - ' + agora.toLocaleTimeString('pt-BR', {
+                            hour: '2-digit', minute: '2-digit'
+                        });
 
+                        dados[produtoAtual].historico.push({ data: hoje, total: '+1' });
+                        salvarDados(dados);
+                        renderHistorico();
+                    });
+                    
                     // Decrementar (menos 1)
                     document.getElementById('menos').addEventListener('click', () => {
                         const dados = carregarDados();
@@ -382,10 +418,22 @@ document.addEventListener('DOMContentLoaded', carregarEstado);
                             dados[produtoAtual].quantidade--;
                             salvarDados(dados);
                             atualizarContador(dados[produtoAtual].quantidade);
-                            atualizarHistorico('-'); // <-- remove última entrada
+
+                            // adicionar ao histórico apenas a ação atual (NÃO remover a última linha)
+                            const agora = new Date();
+                            const hoje = agora.toLocaleDateString('pt-BR', {
+                                day: '2-digit', month: 'long', year: 'numeric'
+                            }) + ' - ' + agora.toLocaleTimeString('pt-BR', {
+                                hour: '2-digit', minute: '2-digit'
+                            });
+
+                            dados[produtoAtual].historico.push({ data: hoje, total: '-1' });
+                            salvarDados(dados);
+                            renderHistorico();
                         }
                     });
                 }
+                
 
                 editButton.style.opacity = "0.6";
             } else {
