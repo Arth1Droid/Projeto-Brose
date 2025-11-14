@@ -37,4 +37,13 @@ document.addEventListener("DOMContentLoaded", () => {
     // Se não tiver busca, esconde a mensagem
     notFoundDiv.style.display = "none";
   }
+  
+  document.addEventListener("click", (e) => {
+  if (e.target.classList.contains("delete-btn")) {
+    const productItem = e.target.closest(".product-item"); // acha o bloco do produto
+    productItem.remove(); // remove da tela
+  }
+});
+
+
 });

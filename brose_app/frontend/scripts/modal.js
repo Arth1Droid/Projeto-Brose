@@ -87,7 +87,7 @@ function addNewProduct(name, descricao) {
             <p>${descricao}</p>
             <div class="buttons-main">
                 <button type="button" class="white-btn" id="detail-button">Ver Detalhes</button>
-                <button type="button" class="red-btn">Excluir</button>
+                <button type="button" class="red-btn"id="delete-btn" >Excluir</button>
             </div>
         `;
 
