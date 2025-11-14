@@ -1,0 +1,29 @@
+from flask import Flask
+from flask_cors import CORS
+from brose_app.backend.models.database import db
+from brose_app.backend.controllers.routes import register_routes
+
+
+
+def create_app():
+    app = Flask(__name__)
+
+    # Configuração do banco
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///banco.db'
+    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
+    # CORS liberando o front na porta 5500
+    CORS(app, resources={r"/*": {"origins": "http://localhost:5500"}})
+
+    # Inicializa o banco
+    db.init_app(app)
+
+    # Registra rotas externas
+    register_routes(app)
+
+    return app
+
+
+if __name__ == '__main__':
+    app = create_app()
+    app.run(port=5000, debug=True)

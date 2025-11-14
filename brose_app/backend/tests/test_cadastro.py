@@ -6,8 +6,8 @@ from flask import Flask
 # Adicionar brose_app ao path
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '../..')))
 
-from backend.models.database import db as db_instance
-from backend.controllers import create_app  # sua app factory sem blueprint
+from brose_app.backend.models.database import db as db_instance
+from brose_app.backend.app import create_app
 
 
 @pytest.fixture

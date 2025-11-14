@@ -1,4 +1,4 @@
-from .database import db
+from brose_app.backend.models.database import db
 
 class Produto(db.Model):
     __tablename__ = 'produto' 

@@ -1,4 +1,4 @@
-from backend.models.database import db
+from brose_app.backend.models.database import db
 
 class Registra(db.Model):
     __tablename__ = 'registra'
