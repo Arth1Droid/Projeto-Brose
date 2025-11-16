@@ -1,5 +1,5 @@
 from flask import request, jsonify
-from brose_app.backend.services.produto_cadastro_service import cadastrar_produto
+from brose_app.backend.services.produto_service import cadastrar_produto
 
 def register_routes(app):
 
