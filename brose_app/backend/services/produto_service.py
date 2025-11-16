@@ -63,6 +63,17 @@ class ProdutoService:
         """Função para buscar produtos por nome."""
         return self.repository.find_by_name(nome)
 
+    def yolo_incrementar_quantidade_automaticamente(self, id_produto: int):
+        """Função que o slgotiymo do Yolo vai chamar para adicionar +1 no campo quantidade na tabela Produto."""
+        produto = self.repository.get_by_id(id_produto)
+        if not produto:
+            raise ValueError("Produto não encontrado")
+
+        produto.quantidade += 1
+        self.repository.update(produto)
+
+        return produto  # retorna objeto com o campo quantidade atualizado
+
 
     def editar_quantidade(dados: dict):
         """Função responsável por editar quantidades no banco de dados"""
