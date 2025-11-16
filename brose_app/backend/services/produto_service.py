@@ -59,6 +59,10 @@ class ProdutoService:
             raise ValueError("Produto não encontrado.")
         return produto
 
-    
+    def buscar_por_nome(self, nome):
+        """Função para buscar produtos por nome."""
+        return self.repository.find_by_name(nome)
+
+
     def editar_quantidade(dados: dict):
         """Função responsável por editar quantidades no banco de dados"""
