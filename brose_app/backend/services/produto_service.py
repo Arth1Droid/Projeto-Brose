@@ -6,19 +6,19 @@ class ProdutoService:
     def __init__(self):
         self.repository = ProdutoRepository()
         
-    def cadastrar_produto(self, dados: dict):
-        """Função responsável por cadastrar um novo produto no banco."""
-        nome = dados.get('nome')
-        quantidade = dados.get('quantidade', 0)
-        descricao = dados.get('descricao', '')
+    def cadastrar_produto(self, dados):
+        nome = dados["nome"].strip()
+        #  Verifica se já existe um produto com o mesmo nome para evitar produto duplicados
+        existente = self.repository.find_by_name(nome)
+        if existente:
+            raise ValueError("Já existe um produto com esse nome.")
 
-        novo_produto = Produto(
+        produto = Produto(
             nome=nome,
-            quantidade=quantidade,
-            descricao=descricao
+            descricao=dados.get("descricao", "").strip(),
+            quantidade=0
         )
-        # Chama o repositório para salvar no banco
-        return self.repository.add(produto=novo_produto)
+        return self.repository.add(produto)
 
     def deletar_produto(self, id_produto: int) -> bool:
         """Remove um produto do banco de dados."""
