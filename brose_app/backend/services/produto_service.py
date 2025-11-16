@@ -6,7 +6,7 @@ class ProdutoService:
     def __init__(self):
         self.repository = ProdutoRepository()
         
-    def cadastrar_produto(dados: dict):
+    def cadastrar_produto(self, dados: dict):
         """Função responsável por cadastrar um novo produto no banco."""
         nome = dados.get('nome')
         quantidade = dados.get('quantidade', 0)
@@ -52,5 +52,13 @@ class ProdutoService:
         """Função para Retornar todos os produtos cadastrados."""
         return self.repository.get_all()
 
+    def buscar_produto_por_id(self, id_produto):
+        """Função para buscar um produto por id."""
+        produto = self.repository.get_by_id(id_produto)
+        if not produto:
+            raise ValueError("Produto não encontrado.")
+        return produto
+
+    
     def editar_quantidade(dados: dict):
         """Função responsável por editar quantidades no banco de dados"""
