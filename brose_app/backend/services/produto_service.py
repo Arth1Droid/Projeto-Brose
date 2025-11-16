@@ -52,17 +52,6 @@ class ProdutoService:
         """Função para Retornar todos os produtos cadastrados."""
         return self.repository.get_all()
 
-    def buscar_produto_por_id(self, id_produto):
-        """Função para buscar um produto por id."""
-        produto = self.repository.get_by_id(id_produto)
-        if not produto:
-            raise ValueError("Produto não encontrado.")
-        return produto
-
-    def buscar_por_nome(self, nome):
-        """Função para buscar produtos por nome."""
-        return self.repository.find_by_name(nome)
-
     def yolo_incrementar_quantidade_automaticamente(self, id_produto: int):
         """Função que o slgotiymo do Yolo vai chamar para adicionar +1 no campo quantidade na tabela Produto."""
         produto = self.repository.get_by_id(id_produto)
