@@ -48,5 +48,9 @@ class ProdutoService:
         # Salva no banco usando o repository
         return self.repository.update(produto)
     
+    def listar_produtos(self):
+        """Função para Retornar todos os produtos cadastrados."""
+        return self.repository.get_all()
+
     def editar_quantidade(dados: dict):
         """Função responsável por editar quantidades no banco de dados"""
