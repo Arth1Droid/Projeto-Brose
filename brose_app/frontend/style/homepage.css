@@ -68,7 +68,8 @@ button {
 }
 
 .white-btn,
-.red-btn {
+.red-btn, .delete-button,
+.detail-button {
   flex: 1;
   font-size: 15px;
   padding: 10px;
@@ -79,7 +80,7 @@ button {
 }
 
 /* Botão Cancelar */
-.white-btn {
+.white-btn, .detail-button {
   background-color: transparent;
   border: 1.5px solid #d00;
   color: #d00;
@@ -90,7 +91,7 @@ button {
 }
 
 /* Botão Continuar */
-.red-btn {
+.red-btn, .delete-button {
   background-color: #b60000;
   color: #fff;
   border: none;
@@ -99,6 +100,20 @@ button {
 .red-btn:hover {
   background-color: #8c0000;
 }
+
+.
+
+.detail-button:hover {
+  background-color: #fceaea;
+}
+
+
+.delete-button:hover {
+  background-color: #8c0000;
+}
+
+
+
 
 .notfound-item{
   display: none; /* começa invisível */

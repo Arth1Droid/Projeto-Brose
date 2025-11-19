@@ -57,46 +57,6 @@ document.addEventListener('DOMContentLoaded', function () {
     if (closeBtn) closeBtn.addEventListener('click', hideCadastroModal);
     if (cancelBtn) cancelBtn.addEventListener('click', hideCadastroModal);
 
-    // ---- Função de adicionar produto ----
-function addNewProduct(name, descricao) {
-    const items = document.querySelectorAll('.items');
-    let itemExistente = null;
-
-    // Procurar item igual (nome + descrição)
-    items.forEach(item => {
-        const nomeItem = item.querySelector('h2').textContent.trim().toLowerCase();
-        const descItem = item.querySelector('p').textContent.trim().toLowerCase();
-
-        if (nomeItem === name.toLowerCase() && descItem === descricao.toLowerCase()) {
-            itemExistente = item;
-        }
-    });
-
-    if (itemExistente) {
-        // Se já existe, apenas exibe alerta e não adiciona novamente
-        alert("Erro: Este produto já foi cadastrado!");
-        return; // interrompe a execução da função
-    } else {
-        // Criar novo item com contador inicial 1
-        const newItem = document.createElement('div');
-        newItem.classList.add('items');
-        newItem.dataset.quantidade = 1;
-
-        newItem.innerHTML = `
-            <h2>${name}</h2>
-            <p>${descricao}</p>
-            <div class="buttons-main">
-                <button type="button" class="white-btn" id="detail-button">Ver Detalhes</button>
-                <button type="button" class="red-btn"id="delete-btn" >Excluir</button>
-            </div>
-        `;
-
-        itemsContainer.appendChild(newItem);
-    }
-
-    attachDetailListeners(); // garante que o botão "ver detalhes" funcione para novos itens
-    filterProducts(); // atualiza pesquisa
-}
 
 
     const contadorSpan = document.getElementById('detailQuantidade');
@@ -228,7 +188,7 @@ document.addEventListener('DOMContentLoaded', carregarEstado);
 
     // Função para exibir detalhes do produto
     function attachDetailListeners() {
-    const detailButtons = document.querySelectorAll('#detail-button');
+    const detailButtons = document.querySelectorAll('.detail-button');
     const detailModal = document.getElementById('detailModal');
     const closeDetailModal = document.getElementById('closeDetailModal');
     const historicoList = document.getElementById('historico-list');
@@ -451,21 +411,21 @@ attachDetailListeners();
 
 
     // ---- Submissão do formulário de produto ----
-    form.addEventListener('submit', function (e) {
-        e.preventDefault();
+    // form.addEventListener('submit', function (e) {
+    //     e.preventDefault();
 
-        const name = document.getElementById('productName').value.trim();
-        const descricao = document.getElementById('productDesc').value.trim();
+    //     const name = document.getElementById('productName').value.trim();
+    //     const descricao = document.getElementById('productDesc').value.trim();
 
-        if (name && descricao) {
-            addNewProduct(name, descricao);
-            hideCadastroModal();
-            form.reset();
-            showSuccessModal(); 
-        } else {
-            alert('Por favor, preencha todos os campos!');
-        }
-    });
+    //     if (name && descricao) {
+    //         addNewProduct(name, descricao);
+    //         hideCadastroModal();
+    //         form.reset();
+    //         showSuccessModal(); 
+    //     } else {
+    //         alert('Por favor, preencha todos os campos!');
+    //     }
+    // });
 
     // ---- Filtro de pesquisa ----
     function filterProducts() {
