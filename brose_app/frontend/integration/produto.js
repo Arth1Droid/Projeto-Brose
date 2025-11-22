@@ -33,16 +33,16 @@ async function loadProducts() {
         <h2>${produto.nome}</h2>
         <p>${produto.descricao}</p>
         <div class="buttons-main">
-          <button type="button" class="detail-button">Ver Detalhes</button>
-          <button type="button" class="delete-button">Excluir</button>
+          <button type="button" class="white-btn">Ver Detalhes</button>
+          <button type="button" class="red-btn">Excluir</button>
         </div>
       `;
 
       itemsContainer.appendChild(newItem);
 
       // Adicionar listeners aos botões
-      const detailBtn = newItem.querySelector(".detail-button");
-      const deleteBtn = newItem.querySelector(".delete-button");
+      const detailBtn = newItem.querySelector(".white-btn");
+      const deleteBtn = newItem.querySelector(".red-btn");
 
       detailBtn.addEventListener("click", () => {
         const detailModal = document.getElementById("detailModal");
