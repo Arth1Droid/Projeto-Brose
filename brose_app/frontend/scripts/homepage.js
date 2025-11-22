@@ -1,49 +1,48 @@
 document.addEventListener("DOMContentLoaded", () => {
-  // Captura o parâmetro 'q' da URL
-  const params = new URLSearchParams(window.location.search);
-  const query = params.get("q")?.trim().toLowerCase();
 
-  // Pega a div da mensagem de "não encontrado"
+  const form = document.getElementById("searchForm");
+  const input = form.querySelector('input[name="q"]');
   const notFoundDiv = document.querySelector(".notfound-item");
+  const pecas = document.querySelectorAll(".items");
+  const searchButton = document.querySelector(".homepage_search_button");
 
-  // Se tiver algo digitado na busca
-  if (query) {
-    // Preenche o input com o valor pesquisado
-    document.querySelector('input[name="q"]').value = query;
+  // Impede recarregamento da página
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
+    e.stopPropagation();
 
-    // Pega todas as peças
-    const pecas = document.querySelectorAll(".items");
-    let encontrouAlguma = false;
+    const query = input.value.trim().toLowerCase();
+    filtrarPecas(query);
+  });
+
+  // Clique no botão da lupa 🔍
+  searchButton.addEventListener("click", () => {
+    const query = input.value.trim().toLowerCase();
+    filtrarPecas(query);
+  });
+
+  // 🔎 Função para filtrar peças
+  function filtrarPecas(query) {
+    if (!query) {
+      pecas.forEach(peca => peca.style.display = "");
+      notFoundDiv.style.display = "none";
+      return;
+    }
+
+    let encontrou = false;
 
     pecas.forEach(peca => {
       const nome = peca.querySelector("h2").textContent.toLowerCase();
 
-      // Mostra só as peças que têm o texto pesquisado
       if (nome.includes(query)) {
         peca.style.display = "";
-        encontrouAlguma = true;
+        encontrou = true;
       } else {
         peca.style.display = "none";
       }
     });
 
-    // Mostra ou esconde a div de "não encontrado"
-    if (!encontrouAlguma) {
-      notFoundDiv.style.display = "block";
-    } else {
-      notFoundDiv.style.display = "none";
-    }
-  } else {
-    // Se não tiver busca, esconde a mensagem
-    notFoundDiv.style.display = "none";
+    notFoundDiv.style.display = encontrou ? "none" : "block";
   }
-  
-  document.addEventListener("click", (e) => {
-  if (e.target.classList.contains("delete-btn")) {
-    const productItem = e.target.closest(".product-item"); // acha o bloco do produto
-    productItem.remove(); // remove da tela
-  }
-});
-
 
 });

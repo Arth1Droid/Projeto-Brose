@@ -31,14 +31,14 @@
       <!-- bARRA DE PESQUISA, ADIÇÃO E GERAR RELATORIOIS -->
       <div class="homepage_options">
         <!-- PESQUISA  -->
-        <form action="#" method="get" class="homepage_search_form">
+        <form id="searchForm" action="#" method="get" class="homepage_search_form">
           <input
             type="text"
             name="q"
             placeholder="Pesquisar..."
             class="homepage_search_input"
           />
-          <button type="submit" class="homepage_search_button">
+          <button type="button" class="homepage_search_button">
             <img src="../pictures/homepage_lupa.svg" alt="lupa" />
           </button>
         </form>
@@ -83,7 +83,7 @@
         <!-- Modal de Cadastro de Produto -->
         <div id="cadastroModal" class="modal">
           <div class="modal-content">
-            <button class="close-btn" id="closeModal">&times;</button>
+            <button type="button" class="close-btn" id="closeModal">&times;</button>
             <h2>Cadastrar Novo Produto</h2>
             <p class="subtitle">Preencha as informações do produto</p>
 
@@ -96,7 +96,7 @@
 
             <div class="buttons">
               <button type="button" class="white-btn" id="cancel-btn">Cancelar</button>
-              <button type="submit" class="red-btn">Continuar</button>
+              <button type="button" class="red-btn">Continuar</button>
             </div>
           </form>
         </div>
@@ -105,7 +105,7 @@
       <!--Modal ver detalhes *********** em andamento (em fase de teste)-->
       <div class="modal-overlay" id="detailModal">
         <div class="modal-content contabilizador">
-          <button id="closeDetailModal" class="close-button">&times;</button>
+          <button type="button" id="closeDetailModal" class="close-button">&times;</button>
 
           <h3 class="detail-titulo">PEÇAS CONTABILIZADAS</h3>
 
@@ -131,7 +131,7 @@
               <ul id="historico-list"></ul>
             </div>
           </div>
-            <button id="clearHistoryBtn" class="white-btn">Limpar Histórico</button>
+            <button type="button" id="clearHistoryBtn" class="white-btn">Limpar Histórico</button>
             <ul id="historico-list"></ul>
           </div>
         </div>

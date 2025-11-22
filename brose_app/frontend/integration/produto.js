@@ -1,6 +1,32 @@
-document.addEventListener("DOMContentLoaded", () => {
-  loadProducts();
-});
+window.addEventListener("DOMContentLoaded", loadProducts);
+window.loadProducts = loadProducts;
+
+// Função para deletar produto
+async function deletarProduto(idProduto, elemento) {
+  if (!confirm("Deseja realmente excluir este produto?")) return;
+
+  try {
+    const response = await fetch(`http://localhost:5000/produtos/${idProduto}`, {
+      method: "DELETE"
+    });
+
+    if (!response.ok) throw new Error("Erro ao deletar");
+    
+    elemento.remove();
+    console.log(`Produto ${idProduto} deletado com sucesso.`);
+  } catch (err) {
+    console.error(err);
+    alert("Erro ao deletar produto");
+  }
+}
+
+// Função para abrir detalhes do produto
+function abrirDetalhes(produto) {
+  const detailModal = document.getElementById("detailModal");
+  detailModal.classList.add("active");
+  document.getElementById("detailName").textContent = produto.nome;
+  document.getElementById("detailDesc").textContent = produto.descricao;
+}
 
 // Função para carregar produtos do backend
 async function loadProducts() {
@@ -45,27 +71,13 @@ async function loadProducts() {
       const deleteBtn = newItem.querySelector(".red-btn");
 
       detailBtn.addEventListener("click", () => {
-        const detailModal = document.getElementById("detailModal");
-        detailModal.classList.add("active");
-        document.getElementById("detailName").textContent = produto.nome;
-        document.getElementById("detailDesc").textContent = produto.descricao;
+        abrirDetalhes(produto);
       });
 
-      deleteBtn.addEventListener("click", async () => {
-        if (!confirm("Deseja realmente excluir este produto?")) return;
-
-        try {
-          const response = await fetch(`http://localhost:5000/produtos/${produto.id_produto}`, {
-            method: "DELETE"
-          });
-
-          if (!response.ok) throw new Error("Erro ao deletar");
-          newItem.remove();
-          console.log(`Produto ${produto.id_produto} deletado com sucesso.`);
-        } catch (err) {
-          console.error(err);
-          alert("Erro ao deletar produto");
-        }
+      deleteBtn.addEventListener("click", (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        deletarProduto(produto.id_produto, newItem);
       });
     });
 
