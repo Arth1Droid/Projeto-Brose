@@ -15,7 +15,11 @@ def create_app():
     app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{db_path}'
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
-    CORS(app, resources={r"/*": {"origins": "http://localhost:5500"}})
+    CORS(app, resources={
+        r"/*": {
+            "origins": ["http://localhost:5500", "http://127.0.0.1:5500", "http://localhost:3000", "http://127.0.0.1:3000"]
+        }
+    })
 
     db.init_app(app)
 
@@ -26,4 +30,4 @@ def create_app():
 
 if __name__ == '__main__':
     app = create_app()
-    app.run(port=5000, debug=True)
+    app.run(port=5000, debug=False)

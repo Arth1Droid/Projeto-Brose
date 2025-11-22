@@ -2,18 +2,24 @@ window.addEventListener("DOMContentLoaded", loadProducts);
 window.loadProducts = loadProducts;
 
 // Função para deletar produto
-async function deletarProduto(idProduto, elemento) {
+async function deletarProduto(idProduto, elemento) { 
   if (!confirm("Deseja realmente excluir este produto?")) return;
-
   try {
-    const response = await fetch(`http://localhost:5000/produtos/${idProduto}`, {
-      method: "DELETE"
-    });
+    const response = await fetch(
+      `http://localhost:5000/produtos/${idProduto}`,
+      {
+        method: "DELETE",
+      }
+    );
 
     if (!response.ok) throw new Error("Erro ao deletar");
     
-    elemento.remove();
-    console.log(`Produto ${idProduto} deletado com sucesso.`);
+    if (elemento) {
+      elemento.remove();
+    } else {
+      loadProducts();
+    }
+    
   } catch (err) {
     console.error(err);
     alert("Erro ao deletar produto");
@@ -45,7 +51,8 @@ async function loadProducts() {
     itemsContainer.innerHTML = "";
 
     if (produtos.length === 0) {
-      itemsContainer.innerHTML = "<p class='nenhum-produto'>Nenhum produto cadastrado.</p>";
+      itemsContainer.innerHTML =
+        "<p class='nenhum-produto'>Nenhum produto cadastrado.</p>";
       return;
     }
 
@@ -77,6 +84,7 @@ async function loadProducts() {
       deleteBtn.addEventListener("click", (e) => {
         e.preventDefault();
         e.stopPropagation();
+
         deletarProduto(produto.id_produto, newItem);
       });
     });

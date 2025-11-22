@@ -1,9 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
-
   const form = document.getElementById("searchForm");
   const input = form.querySelector('input[name="q"]');
   const notFoundDiv = document.querySelector(".notfound-item");
-  const pecas = document.querySelectorAll(".items");
   const searchButton = document.querySelector(".homepage_search_button");
 
   // Impede recarregamento da página
@@ -16,13 +14,18 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   // Clique no botão da lupa 🔍
-  searchButton.addEventListener("click", () => {
+  searchButton.addEventListener("click", (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    
     const query = input.value.trim().toLowerCase();
     filtrarPecas(query);
   });
 
-  // 🔎 Função para filtrar peças
+  // 🔎 Função para filtrar peças - AGORA busca os elementos quando chamada
   function filtrarPecas(query) {
+    const pecas = document.querySelectorAll(".items"); // ← BUSCA NA HORA
+    
     if (!query) {
       pecas.forEach(peca => peca.style.display = "");
       notFoundDiv.style.display = "none";
@@ -44,5 +47,4 @@ document.addEventListener("DOMContentLoaded", () => {
 
     notFoundDiv.style.display = encontrou ? "none" : "block";
   }
-
 });
