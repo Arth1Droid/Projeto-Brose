@@ -1,25 +1,76 @@
-  document.getElementById("productForm").addEventListener("submit", async (e) => {
-    e.preventDefault(); // impede o refresh
+document.addEventListener("DOMContentLoaded", () => {
+  loadProducts();
+});
 
-    const data = {
-      name: document.getElementById("productName").value,
-      description: document.getElementById("productDesc").value
-    };
+// Função para carregar produtos do backend
+async function loadProducts() {
+  try {
+    const response = await fetch("http://localhost:5000/produtos");
+    if (!response.ok) throw new Error("Erro ao buscar produtos");
 
-    try {
-      const response = await fetch("http://localhost:3000/api/products", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data)
+    const produtos = await response.json();
+    const itemsContainer = document.querySelector(".grid-main");
+
+    if (!itemsContainer) {
+      console.error("Erro: container .grid-main não encontrado");
+      return;
+    }
+
+    itemsContainer.innerHTML = "";
+
+    if (produtos.length === 0) {
+      itemsContainer.innerHTML = "<p class='nenhum-produto'>Nenhum produto cadastrado.</p>";
+      return;
+    }
+
+    produtos.forEach((produto) => {
+      const newItem = document.createElement("div");
+      newItem.id = `${produto.id_produto}`;
+      newItem.classList.add("items");
+      newItem.dataset.id = produto.id_produto;
+
+      newItem.innerHTML = `
+        <h2>${produto.nome}</h2>
+        <p>${produto.descricao}</p>
+        <div class="buttons-main">
+          <button type="button" class="detail-button">Ver Detalhes</button>
+          <button type="button" class="delete-button">Excluir</button>
+        </div>
+      `;
+
+      itemsContainer.appendChild(newItem);
+
+      // Adicionar listeners aos botões
+      const detailBtn = newItem.querySelector(".detail-button");
+      const deleteBtn = newItem.querySelector(".delete-button");
+
+      detailBtn.addEventListener("click", () => {
+        const detailModal = document.getElementById("detailModal");
+        detailModal.classList.add("active");
+        document.getElementById("detailName").textContent = produto.nome;
+        document.getElementById("detailDesc").textContent = produto.descricao;
       });
 
-      if (!response.ok) throw new Error("Erro na requisição");
+      deleteBtn.addEventListener("click", async () => {
+        if (!confirm("Deseja realmente excluir este produto?")) return;
 
-      const result = await response.json();
-      console.log("Produto cadastrado:", result);
-      alert("Produto cadastrado com sucesso!");
-    } catch (err) {
-      console.error(err);
-      alert("Erro ao salvar o produto");
-    }
-  });
+        try {
+          const response = await fetch(`http://localhost:5000/produtos/${produto.id_produto}`, {
+            method: "DELETE"
+          });
+
+          if (!response.ok) throw new Error("Erro ao deletar");
+          newItem.remove();
+          console.log(`Produto ${produto.id_produto} deletado com sucesso.`);
+        } catch (err) {
+          console.error(err);
+          alert("Erro ao deletar produto");
+        }
+      });
+    });
+
+    console.log("Produtos carregados com sucesso:", produtos);
+  } catch (err) {
+    console.error("Erro ao carregar produtos:", err);
+  }
+}

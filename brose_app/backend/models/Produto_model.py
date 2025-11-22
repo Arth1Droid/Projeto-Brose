@@ -12,9 +12,9 @@ class Produto(db.Model):
 
     def to_json(self):
         return {
-            "id": self.id_produto,
+            "id_produto": self.id_produto,
             "nome": self.nome,
             "quantidade": self.quantidade,
             "descricao": self.descricao,
-            "registos": self.registros
+            "registros": [r.to_json() for r in self.registros]
         }

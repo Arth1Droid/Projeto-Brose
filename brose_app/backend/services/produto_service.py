@@ -1,4 +1,4 @@
-from repositories.produto_repository import ProdutoRepository
+from ..repositories.produto_repository import ProdutoRepository
 from ..models.database import db
 from ..models.Produto_model import Produto
 
@@ -63,6 +63,6 @@ class ProdutoService:
 
         return produto  # retorna objeto com o campo quantidade atualizado
 
-
-    def editar_quantidade(dados: dict):
+    def editar_quantidade(self, dados: dict):
         """Função responsável por editar quantidades no banco de dados"""
+        pass

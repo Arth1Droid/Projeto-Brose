@@ -1,3 +1,4 @@
+import os
 from flask import Flask
 from flask_cors import CORS
 from brose_app.backend.models.database import db
@@ -7,22 +8,21 @@ from brose_app.backend.services.produto_service import ProdutoService
 def create_app():
     app = Flask(__name__)
 
-    # Configuração do banco
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///banco.db'
+    # Caminho absoluto do banco de dados
+    base_dir = os.path.abspath(os.path.dirname(__file__))
+    db_path = os.path.join(base_dir, 'data', 'instance', 'brose.db')
+
+    app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{db_path}'
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
-    # CORS liberando o front na porta 5500
     CORS(app, resources={r"/*": {"origins": "http://localhost:5500"}})
 
-    # Inicializa o banco
     db.init_app(app)
 
-    produto_service = ProdutoService() 
-    # Registra rotas externas
+    produto_service = ProdutoService()
     register_routes(app, produto_service)
 
     return app
-
 
 if __name__ == '__main__':
     app = create_app()

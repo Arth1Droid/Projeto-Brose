@@ -1,11 +1,10 @@
 # models/produto_repository.py
 
-from models.database import db
-from models.Produto_model import Produto
+from ..models.database import db
+from ..models.Produto_model import Produto
 from typing import List, Optional
 
 class ProdutoRepository:
-
 
     def get_by_id(self, id_produto: int) -> Optional[Produto]:
         return db.session.get(Produto, id_produto)
