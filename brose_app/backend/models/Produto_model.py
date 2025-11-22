@@ -15,5 +15,6 @@ class Produto(db.Model):
             "id": self.id_produto,
             "nome": self.nome,
             "quantidade": self.quantidade,
-            "descricao": self.descricao
+            "descricao": self.descricao,
+            "registos": self.registros
         }

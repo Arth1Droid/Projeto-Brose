@@ -2,8 +2,7 @@ from flask import Flask
 from flask_cors import CORS
 from brose_app.backend.models.database import db
 from brose_app.backend.controllers.routes import register_routes
-
-
+from brose_app.backend.services.produto_service import ProdutoService
 
 def create_app():
     app = Flask(__name__)
@@ -18,8 +17,9 @@ def create_app():
     # Inicializa o banco
     db.init_app(app)
 
+    produto_service = ProdutoService() 
     # Registra rotas externas
-    register_routes(app)
+    register_routes(app, produto_service)
 
     return app
 
