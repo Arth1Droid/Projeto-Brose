@@ -4,16 +4,15 @@ window.loadProducts = loadProducts;
 // Função para deletar produto
 async function deletarProduto(idProduto, elemento) { 
   if (!confirm("Deseja realmente excluir este produto?")) return;
+
   try {
     const response = await fetch(
       `http://localhost:5000/produtos/${idProduto}`,
-      {
-        method: "DELETE",
-      }
+      { method: "DELETE" }
     );
 
     if (!response.ok) throw new Error("Erro ao deletar");
-    
+
     if (elemento) {
       elemento.remove();
     } else {
@@ -25,14 +24,6 @@ async function deletarProduto(idProduto, elemento) {
     alert("Erro ao deletar produto");
   }
 }
-
-// // Função para abrir detalhes do produto
-// function abrirDetalhes(produto) {
-//   const detailModal = document.getElementById("detailModal");
-//   detailModal.classList.add("active");
-//   document.getElementById("detailName").textContent = produto.nome;
-//   document.getElementById("detailDesc").textContent = produto.descricao;
-// }
 
 // Função para carregar produtos do backend
 async function loadProducts() {
@@ -73,23 +64,24 @@ async function loadProducts() {
 
       itemsContainer.appendChild(newItem);
 
-      // Adicionar listeners aos botões
       const detailBtn = newItem.querySelector(".white-btn");
       const deleteBtn = newItem.querySelector(".red-btn");
 
+      // Abrir modal de detalhes usando a função global
       detailBtn.addEventListener("click", () => {
-        abrirDetalhes(produto);
+        window.abrirDetalhes(produto);
       });
 
+      // Deletar produto
       deleteBtn.addEventListener("click", (e) => {
         e.preventDefault();
         e.stopPropagation();
-
         deletarProduto(produto.id_produto, newItem);
       });
     });
 
     console.log("Produtos carregados com sucesso:", produtos);
+    
   } catch (err) {
     console.error("Erro ao carregar produtos:", err);
   }
