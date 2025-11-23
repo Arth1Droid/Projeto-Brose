@@ -26,13 +26,13 @@ async function deletarProduto(idProduto, elemento) {
   }
 }
 
-// Função para abrir detalhes do produto
-function abrirDetalhes(produto) {
-  const detailModal = document.getElementById("detailModal");
-  detailModal.classList.add("active");
-  document.getElementById("detailName").textContent = produto.nome;
-  document.getElementById("detailDesc").textContent = produto.descricao;
-}
+// // Função para abrir detalhes do produto
+// function abrirDetalhes(produto) {
+//   const detailModal = document.getElementById("detailModal");
+//   detailModal.classList.add("active");
+//   document.getElementById("detailName").textContent = produto.nome;
+//   document.getElementById("detailDesc").textContent = produto.descricao;
+// }
 
 // Função para carregar produtos do backend
 async function loadProducts() {
