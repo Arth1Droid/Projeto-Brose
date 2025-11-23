@@ -1,5 +1,6 @@
 from flask import request, jsonify
 from brose_app.backend.services.produto_service import ProdutoService
+from brose_app.backend.services.yolo_service import YoloService
 
 def register_routes(app, produto_service: ProdutoService):
     
@@ -56,6 +57,15 @@ def register_routes(app, produto_service: ProdutoService):
             return jsonify({'erro': str(e)}), 404
         except Exception as e:
             print(f"Erro inesperado: {e}")
+            return jsonify({'erro': 'Erro interno no servidor.'}), 500
+
+    @app.route('/yolo/iniciar', methods=['POST'])
+    def iniciar_yolo():
+        try:
+            resposta = yolo_service.iniciar_contagem_thread()
+            return jsonify({"mensagem": resposta}), 200
+        except Exception as e:
+            print(f"Erro inesperado ao iniciar YOLO: {e}")
             return jsonify({'erro': 'Erro interno no servidor.'}), 500
 
     # Rota simples para testar se está funcionando
