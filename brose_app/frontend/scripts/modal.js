@@ -8,6 +8,9 @@ async function toggleModal() {
   const idDetalhes = document.getElementById("detailModal");
   const closeDetailModal = document.getElementById("closeDetailModal");
   const showDetailModal = document.querySelector(".items");
+  const addButton = document.querySelector("#homepage-add");
+  
+  
   if (modalSucesso) {
     function showSuccessModal() {
       modalSucesso.classList.add("active");
