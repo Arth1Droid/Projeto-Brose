@@ -1,3 +1,4 @@
+from brose_app.backend.services import yolo_service
 from flask import request, jsonify
 from brose_app.backend.services.produto_service import ProdutoService
 from brose_app.backend.services.yolo_service import YoloService
