@@ -60,14 +60,6 @@ def register_routes(app, produto_service: ProdutoService):
             print(f"Erro inesperado: {e}")
             return jsonify({'erro': 'Erro interno no servidor.'}), 500
 
-    @app.route('/yolo/iniciar', methods=['POST'])
-    def iniciar_yolo():
-        try:
-            resposta = yolo_service.iniciar_contagem_thread()
-            return jsonify({"mensagem": resposta}), 200
-        except Exception as e:
-            print(f"Erro inesperado ao iniciar YOLO: {e}")
-            return jsonify({'erro': 'Erro interno no servidor.'}), 500
 
     # Rota simples para testar se está funcionando
     @app.route('/health', methods=['GET'])
