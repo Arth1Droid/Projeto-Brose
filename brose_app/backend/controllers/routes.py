@@ -47,17 +47,6 @@ def register_routes(app, produto_service: ProdutoService):
             print(f"Erro inesperado: {e}")
             return jsonify({'erro': 'Erro interno no servidor.'}), 500
 
-    @app.route('/produtos/<int:id_produto>/incrementar', methods=['PATCH'])
-    def rota_incrementar(id_produto):
-        try:
-            produto = produto_service.yolo_incrementar_quantidade_automaticamente(id_produto)
-            return jsonify(produto.to_json()), 200
-        except ValueError as e:
-            return jsonify({'erro': str(e)}), 404
-        except Exception as e:
-            print(f"Erro inesperado: {e}")
-            return jsonify({'erro': 'Erro interno no servidor.'}), 500
-
     # Rota simples para testar se está funcionando
     @app.route('/health', methods=['GET'])
     def health():
