@@ -1,6 +1,7 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
+from sqlalchemy import text
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///brose.db'
@@ -42,3 +43,13 @@ class Registra(db.Model):
 with app.app_context():
     db.create_all()
     print("✓ Banco de dados criado com sucesso!")
+    create_trigger_sql = text("""
+        CREATE TRIGGER IF NOT EXISTS trg_registro_quantidade
+        AFTER UPDATE OF quantidade ON produto
+        FOR EACH ROW
+        WHEN NEW.quantidade != OLD.quantidade
+        BEGIN
+            INSERT INTO registra (id_produto_fk, quantidade, data_registro)
+            VALUES (NEW.id_produto, NEW.quantidade, datetime('now', 'localtime'));
+        END;
+    """)
