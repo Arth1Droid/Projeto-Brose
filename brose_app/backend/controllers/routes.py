@@ -1,5 +1,6 @@
-from flask import request, jsonify
+from flask import request, jsonify, Response
 from brose_app.backend.services.produto_service import ProdutoService
+from brose_app.backend.services.relatorio_service import RelatorioService
 
 def register_routes(app, produto_service: ProdutoService):
     
@@ -45,6 +46,23 @@ def register_routes(app, produto_service: ProdutoService):
             return jsonify({'erro': str(e)}), 404
         except Exception as e:
             print(f"Erro inesperado: {e}")
+            return jsonify({'erro': 'Erro interno no servidor.'}), 500
+        
+    @app.route('/relatorios/produtos', methods=['GET'])
+    def gerar_relatorio_produtos():
+        try:
+            service = RelatorioService()
+            csv_data = service.gerar_relatorio_produtos()
+
+            return Response(
+                csv_data,
+                mimetype="text/csv",
+                headers={
+                    "Content-Disposition": "attachment; filename=relatorio_produtos.csv"
+                }
+            ), 200
+        except Exception as e:
+            print(f"Erro inesperado ao gerar relatório: {e}")
             return jsonify({'erro': 'Erro interno no servidor.'}), 500
 
     # Rota simples para testar se está funcionando
