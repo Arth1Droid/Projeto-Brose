@@ -1,6 +1,14 @@
 window.addEventListener("DOMContentLoaded", loadProducts);
 window.loadProducts = loadProducts;
 
+window.addEventListener("DOMContentLoaded", () => {
+  const botaoRelatorio = document.getElementById("btn-relatorio");
+  
+  if (botaoRelatorio) {
+    botaoRelatorio.addEventListener("click", gerarRelatorioProdutos);
+  }
+});
+
 // Função para deletar produto
 async function deletarProduto(idProduto, elemento) { 
   if (!confirm("Deseja realmente excluir este produto?")) return;
@@ -22,6 +30,32 @@ async function deletarProduto(idProduto, elemento) {
   } catch (err) {
     console.error(err);
     alert("Erro ao deletar produto");
+  }
+}
+
+async function gerarRelatorioProdutos() {
+  try {
+    const response = await fetch("http://localhost:5000/relatorios/produtos");
+
+    if (!response.ok) {
+      throw new Error("Erro ao gerar relatório");
+    }
+
+    const blob = await response.blob();
+    const url = window.URL.createObjectURL(blob);
+
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "relatorio_produtos.csv"; 
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+
+    window.URL.revokeObjectURL(url);
+
+  } catch (err) {
+    console.error(err);
+    alert("Erro ao gerar relatório.");
   }
 }
 
@@ -86,3 +120,4 @@ async function loadProducts() {
     console.error("Erro ao carregar produtos:", err);
   }
 }
+

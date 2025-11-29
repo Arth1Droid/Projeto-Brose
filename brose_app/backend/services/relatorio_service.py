@@ -20,7 +20,7 @@ class RelatorioService:
         # Dados
         for p in produtos:
             writer.writerow([
-                p.id,
+                p.id_produto,
                 p.nome,
                 p.descricao,
                 p.quantidade
