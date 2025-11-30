@@ -3,11 +3,11 @@ header{
     justify-content: flex-end;
     height: 70px;
     min-width: 100%;
-    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3);
-    background-color: rgb(255, 255, 255);
+    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.099);
+    background-color: rgba(255, 252, 252, 0.93);
 }
 .homepage_logotipo {
-max-width: 120px;
+max-width: 110px;
 padding: 10px
 }
 
