@@ -1,5 +1,23 @@
 window.addEventListener("DOMContentLoaded", loadProducts);
 window.loadProducts = loadProducts;
+window.cadastrarProduto = cadastrarProduto;
+window.gerarRelatorioProdutos = gerarRelatorioProdutos;
+
+// Adiciona evento ao botão de cadastrar produto
+  const cadastrarBtn = document.getElementById("continue-btn");
+    if (cadastrarBtn) {
+      cadastrarBtn.addEventListener("click", () => {
+      cadastrarProduto();
+      });
+   }
+
+  // Adiciona evento ao botão de gerar relatórios 
+  const botaoRelatorio = document.getElementById("btn-relatorio");
+    if (botaoRelatorio) {
+       botaoRelatorio.addEventListener("click", gerarRelatorioProdutos);
+     }
+
+
 
 // Função para deletar produto
 async function deletarProduto(idProduto, elemento) { 
@@ -144,19 +162,6 @@ async function loadProducts() {
       });
     });
 
-      // Cadastrar produto
-      const cadastrarBtn = document.getElementById("continue-btn");
-        if (cadastrarBtn) {
-          cadastrarBtn.addEventListener("click", () => {
-            cadastrarProduto();
-          });
-        }
-
-     const botaoRelatorio = document.getElementById("btn-relatorio");
-        if (botaoRelatorio) {
-          botaoRelatorio.addEventListener("click", gerarRelatorioProdutos);
-        }
-
     console.log("Produtos carregados com sucesso:", produtos);
     
   } catch (err) {
@@ -246,6 +251,4 @@ async function carregarHistorico(idProduto) {
     historicoList.innerHTML = "<li>Erro ao carregar histórico</li>";
   }
 }
-
-
 
