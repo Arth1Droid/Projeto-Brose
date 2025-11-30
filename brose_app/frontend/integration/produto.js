@@ -121,3 +121,57 @@ async function loadProducts() {
   }
 }
 
+document.addEventListener("DOMContentLoaded", () => {
+  let produtoAtual = null;
+
+  // Captura o evento do modal
+  document.addEventListener("modalDetalhesAberto", (e) => {
+    produtoAtual = e.detail;
+    configurarEdicaoQuantidade();
+  });
+
+  function configurarEdicaoQuantidade() {
+    const editBtn = document.querySelector(".edit-bottom-contabiliza");
+    const quantidadeSpan = document.getElementById("detailQuantidade");
+
+    if (!editBtn || !quantidadeSpan) return;
+
+    editBtn.onclick = () => {
+      const input = document.createElement("input");
+      input.type = "number";
+      input.min = 0;
+      input.value = quantidadeSpan.textContent;
+      input.style.width = "60px";
+      input.id = "tempQuantidadeInput";
+
+      quantidadeSpan.replaceWith(input);
+      input.focus();
+
+      input.onblur = async () => {
+        const novaQuantidade = parseInt(input.value);
+
+        if (!isNaN(novaQuantidade)) {
+          try {
+            await fetch(`http://localhost:5000/produtos/${produtoAtual.id_produto}`, {
+              method: "PUT",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ quantidade: novaQuantidade })
+            });
+
+            const novoSpan = document.createElement("span");
+            novoSpan.id = "detailQuantidade";
+            novoSpan.className = "contador-numero";
+            novoSpan.textContent = novaQuantidade;
+
+            input.replaceWith(novoSpan);
+          } catch (err) {
+            console.error(err);
+            alert("Erro ao atualizar quantidade");
+          }
+        }
+      };
+    };
+  }
+});
+
+

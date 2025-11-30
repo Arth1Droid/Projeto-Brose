@@ -15,8 +15,16 @@ function abrirDetalhes(produto) {
   document.getElementById("detailName").textContent = produto.nome;
   document.getElementById("detailDesc").textContent = produto.descricao;
 
+  const quantidadeSpan = document.getElementById("detailQuantidade");
+  quantidadeSpan.textContent = produto.quantidade;
+
   showModal(detailModal);
+
+  // Dispara o evento customizado para notificar que o modal abriu
+  const event = new CustomEvent("modalDetalhesAberto", { detail: produto });
+  document.dispatchEvent(event);
 }
+
 
 // Tornar global para outros scripts
 window.showModal = showModal;

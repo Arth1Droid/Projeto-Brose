@@ -31,22 +31,19 @@ class ProdutoService:
         return self.repository.delete(id_produto)
 
     def atualizar_produto(self, id_produto: int, dados: dict):
-        """Atualiza parcialmente um produto no banco de dados. Por hora só nome e descrição."""
+        """Atualiza apenas a quantidade de um produto no banco de dados."""
         
         produto = self.repository.get_by_id(id_produto)
-
         if not produto:
             raise ValueError("Produto não encontrado.")
 
-        # Atualização parcial
-        if 'nome' in dados and dados['nome'] is not None:
-            produto.nome = dados['nome']
-
-        if 'descricao' in dados and dados['descricao'] is not None:
-            produto.descricao = dados['descricao']
+        # Atualização apenas da quantidade
+        if 'quantidade' in dados and dados['quantidade'] is not None:
+            produto.quantidade = int(dados['quantidade'])  # garante que seja inteiro
 
         # Salva no banco usando o repository
         return self.repository.update(produto)
+
     
     def listar_produtos(self):
         """Função para Retornar todos os produtos cadastrados."""
