@@ -1,6 +1,7 @@
 from flask import request, jsonify, Response
 from brose_app.backend.services.produto_service import ProdutoService
 from brose_app.backend.services.relatorio_service import RelatorioService
+from ..services.produto_service import ProdutoService
 
 def register_routes(app, produto_service: ProdutoService):
     
@@ -69,3 +70,16 @@ def register_routes(app, produto_service: ProdutoService):
     @app.route('/health', methods=['GET'])
     def health():
         return jsonify({"status": "ok"}), 200
+    
+    produto_service = ProdutoService()
+
+    @app.route('/produtos/<int:id_produto>/historico', methods=['GET'])
+    def historico_produto(id_produto):
+        """
+        Retorna o histórico de alterações de quantidade de um produto específico.
+        """
+        try:
+            registros = produto_service.listar_historico(id_produto)
+            return jsonify(registros), 200
+        except ValueError as e:
+            return jsonify({"erro": str(e)}), 404

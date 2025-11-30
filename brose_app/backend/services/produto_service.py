@@ -1,6 +1,7 @@
 from ..repositories.produto_repository import ProdutoRepository
 from ..models.database import db
 from ..models.Produto_model import Produto
+from ..models.Registra_model import Registra
 
 class ProdutoService:
     def __init__(self):
@@ -63,3 +64,23 @@ class ProdutoService:
     def editar_quantidade(self, dados: dict):
         """Função responsável por editar quantidades no banco de dados"""
         pass
+    
+    def editar_quantidade(self, id_produto: int, nova_quantidade: int):
+        """Atualiza a quantidade de um produto."""
+        produto = self.repository.get_by_id(id_produto)
+        if not produto:
+            raise ValueError("Produto não encontrado.")
+
+        produto.quantidade = int(nova_quantidade)
+        return self.repository.update(produto)
+    
+    def listar_historico(self, id_produto: int):
+        """Retorna todos os registros de alterações de quantidade de um produto específico."""
+        registros = (
+            db.session.query(Registra)
+            .filter_by(id_produto_fk=id_produto)
+            .order_by(Registra.data_registro.desc())
+            .all()
+        )
+        return [r.to_json() for r in registros]
+

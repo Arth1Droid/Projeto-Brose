@@ -15,12 +15,16 @@ function abrirDetalhes(produto) {
   document.getElementById("detailName").textContent = produto.nome;
   document.getElementById("detailDesc").textContent = produto.descricao;
 
+  // Atualiza a quantidade
   const quantidadeSpan = document.getElementById("detailQuantidade");
   quantidadeSpan.textContent = produto.quantidade;
 
+  // Carrega histórico
+  carregarHistorico(produto.id_produto);
+
   showModal(detailModal);
 
-  // Dispara o evento customizado para notificar que o modal abriu
+  // Dispara evento customizado para o JS de edição
   const event = new CustomEvent("modalDetalhesAberto", { detail: produto });
   document.dispatchEvent(event);
 }

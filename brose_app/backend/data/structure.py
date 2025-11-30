@@ -43,7 +43,7 @@ class Registra(db.Model):
 with app.app_context():
     db.create_all()
     print("✓ Banco de dados criado com sucesso!")
-    create_trigger_sql = text("""
+    db.session.execute(text("""
         CREATE TRIGGER IF NOT EXISTS trg_registro_quantidade
         AFTER UPDATE OF quantidade ON produto
         FOR EACH ROW
@@ -52,4 +52,6 @@ with app.app_context():
             INSERT INTO registra (id_produto_fk, quantidade, data_registro)
             VALUES (NEW.id_produto, NEW.quantidade, datetime('now', 'localtime'));
         END;
-    """)
+    """))
+    db.session.commit()
+    print("✓ Banco de dados criado com sucesso e trigger aplicada!")

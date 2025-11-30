@@ -174,4 +174,35 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 });
 
+async function carregarHistorico(idProduto) {
+  const historicoList = document.getElementById("historico-list");
+  if (!historicoList) return;
+
+  // Limpa histórico anterior
+  historicoList.innerHTML = "";
+
+  try {
+    const response = await fetch(`http://localhost:5000/produtos/${idProduto}/historico`);
+    if (!response.ok) throw new Error("Erro ao buscar histórico");
+
+    const registros = await response.json();
+
+    if (registros.length === 0) {
+      historicoList.innerHTML = "<li>Nenhum registro encontrado.</li>";
+      return;
+    }
+
+    registros.forEach((r) => {
+      const li = document.createElement("li");
+      li.textContent = `Quantidade: ${r.quantidade || "-"} | Data: ${new Date(r.data_registro).toLocaleString()}`;
+      historicoList.appendChild(li);
+    });
+
+  } catch (err) {
+    console.error(err);
+    historicoList.innerHTML = "<li>Erro ao carregar histórico</li>";
+  }
+}
+
+
 
