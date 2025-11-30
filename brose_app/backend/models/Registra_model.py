@@ -4,7 +4,7 @@ class Registra(db.Model):
     __tablename__ = 'registra'
 
     id_registro = db.Column(db.Integer, primary_key=True)
-    id_produto_fk = db.Column(db.Integer, db.ForeignKey('produto.id_produto'), nullable=False)
+    id_produto_fk = db.Column(db.Integer, db.ForeignKey('produto.id_produto', ondelete='CASCADE'), nullable=False)
     data_registro = db.Column(db.DateTime, default=db.func.current_timestamp())
 
     def to_json(self):
