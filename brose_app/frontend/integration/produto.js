@@ -1,14 +1,6 @@
 window.addEventListener("DOMContentLoaded", loadProducts);
 window.loadProducts = loadProducts;
 
-window.addEventListener("DOMContentLoaded", () => {
-  const botaoRelatorio = document.getElementById("btn-relatorio");
-  
-  if (botaoRelatorio) {
-    botaoRelatorio.addEventListener("click", gerarRelatorioProdutos);
-  }
-});
-
 // Função para deletar produto
 async function deletarProduto(idProduto, elemento) { 
   if (!confirm("Deseja realmente excluir este produto?")) return;
@@ -33,6 +25,44 @@ async function deletarProduto(idProduto, elemento) {
   }
 }
 
+// Função para cadastrar produto
+async function cadastrarProduto() {
+  const nome = document.getElementById("productName").value.trim();
+  const descricao = document.getElementById("productDesc").value.trim();
+
+  if (!nome || !descricao) {
+    alert("Preencha todos os campos!");
+    return;
+  }
+  const produto = { nome, descricao, quantidade: 0 };
+  try {
+    const response = await fetch("http://localhost:5000/produtos", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(produto),
+    });
+
+    if (!response.ok) {
+      const erro = await response.json();
+      alert("Erro ao cadastrar: " + erro.erro);
+      return;
+    }
+
+    const novoProduto = await response.json();
+    console.log("Produto cadastrado:", novoProduto);
+
+    // Atualiza lista de produtos
+    if (window.loadProducts) window.loadProducts();
+
+  } catch (err) {
+    console.error(err);
+    alert("Erro na conexão com o servidor!");
+  }
+}
+
+
+
+// Função para gerar relatórios csv
 async function gerarRelatorioProdutos() {
   try {
     const response = await fetch("http://localhost:5000/relatorios/produtos");
@@ -113,6 +143,19 @@ async function loadProducts() {
         deletarProduto(produto.id_produto, newItem);
       });
     });
+
+      // Cadastrar produto
+      const cadastrarBtn = document.getElementById("continue-btn");
+        if (cadastrarBtn) {
+          cadastrarBtn.addEventListener("click", () => {
+            cadastrarProduto();
+          });
+        }
+
+     const botaoRelatorio = document.getElementById("btn-relatorio");
+        if (botaoRelatorio) {
+          botaoRelatorio.addEventListener("click", gerarRelatorioProdutos);
+        }
 
     console.log("Produtos carregados com sucesso:", produtos);
     
