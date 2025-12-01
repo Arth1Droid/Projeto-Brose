@@ -83,4 +83,6 @@ class ProdutoService:
             .all()
         )
         return [r.to_json() for r in registros]
+    
+    
 

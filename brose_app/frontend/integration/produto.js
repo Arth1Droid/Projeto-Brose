@@ -4,23 +4,21 @@ window.cadastrarProduto = cadastrarProduto;
 window.gerarRelatorioProdutos = gerarRelatorioProdutos;
 
 // Adiciona evento ao botão de cadastrar produto
-  const cadastrarBtn = document.getElementById("continue-btn");
-    if (cadastrarBtn) {
-      cadastrarBtn.addEventListener("click", () => {
-      cadastrarProduto();
-      });
-   }
+const cadastrarBtn = document.getElementById("continue-btn");
+if (cadastrarBtn) {
+  cadastrarBtn.addEventListener("click", () => {
+    cadastrarProduto();
+  });
+}
 
-  // Adiciona evento ao botão de gerar relatórios 
-  const botaoRelatorio = document.getElementById("btn-relatorio");
-    if (botaoRelatorio) {
-       botaoRelatorio.addEventListener("click", gerarRelatorioProdutos);
-     }
-
-
+// Adiciona evento ao botão de gerar relatórios
+const botaoRelatorio = document.getElementById("btn-relatorio");
+if (botaoRelatorio) {
+  botaoRelatorio.addEventListener("click", gerarRelatorioProdutos);
+}
 
 // Função para deletar produto
-async function deletarProduto(idProduto, elemento) { 
+async function deletarProduto(idProduto, elemento) {
   if (!confirm("Deseja realmente excluir este produto?")) return;
 
   try {
@@ -36,7 +34,6 @@ async function deletarProduto(idProduto, elemento) {
     } else {
       loadProducts();
     }
-    
   } catch (err) {
     console.error(err);
     alert("Erro ao deletar produto");
@@ -71,14 +68,11 @@ async function cadastrarProduto() {
 
     // Atualiza lista de produtos
     if (window.loadProducts) window.loadProducts();
-
   } catch (err) {
     console.error(err);
     alert("Erro na conexão com o servidor!");
   }
 }
-
-
 
 // Função para gerar relatórios csv
 async function gerarRelatorioProdutos() {
@@ -94,13 +88,12 @@ async function gerarRelatorioProdutos() {
 
     const a = document.createElement("a");
     a.href = url;
-    a.download = "relatorio_produtos.csv"; 
+    a.download = "relatorio_produtos.csv";
     document.body.appendChild(a);
     a.click();
     a.remove();
 
     window.URL.revokeObjectURL(url);
-
   } catch (err) {
     console.error(err);
     alert("Erro ao gerar relatório.");
@@ -150,8 +143,19 @@ async function loadProducts() {
       const deleteBtn = newItem.querySelector(".red-btn");
 
       // Abrir modal de detalhes usando a função global
-      detailBtn.addEventListener("click", () => {
-        window.abrirDetalhes(produto);
+      detailBtn.addEventListener("click", async () => {
+        try {
+          const response = await fetch(
+            `http://localhost:5000/produtos/${produto.id_produto}`
+          );
+          if (!response.ok)
+            throw new Error("Erro ao buscar produto atualizado");
+
+          const dadosAtualizados = await response.json();
+          window.abrirDetalhes(dadosAtualizados);
+        } catch (err) {
+          console.error(err);
+        }
       });
 
       // Deletar produto
@@ -163,7 +167,6 @@ async function loadProducts() {
     });
 
     console.log("Produtos carregados com sucesso:", produtos);
-    
   } catch (err) {
     console.error("Erro ao carregar produtos:", err);
   }
@@ -200,18 +203,28 @@ document.addEventListener("DOMContentLoaded", () => {
 
         if (!isNaN(novaQuantidade)) {
           try {
-            await fetch(`http://localhost:5000/produtos/${produtoAtual.id_produto}`, {
-              method: "PUT",
-              headers: { "Content-Type": "application/json" },
-              body: JSON.stringify({ quantidade: novaQuantidade })
-            });
+            await fetch(
+              `http://localhost:5000/produtos/${produtoAtual.id_produto}`,
+              {
+                method: "PUT",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ quantidade: novaQuantidade }),
+              }
+            );
 
+            // Atualiza o modal
             const novoSpan = document.createElement("span");
             novoSpan.id = "detailQuantidade";
             novoSpan.className = "contador-numero";
             novoSpan.textContent = novaQuantidade;
-
             input.replaceWith(novoSpan);
+
+            // Atualiza a lista principal
+            const card = document.getElementById(produtoAtual.id_produto);
+            if (card) {
+              const qtdSpanCard = card.querySelector(".contador-numero");
+              if (qtdSpanCard) qtdSpanCard.textContent = novaQuantidade;
+            }
           } catch (err) {
             console.error(err);
             alert("Erro ao atualizar quantidade");
@@ -230,7 +243,9 @@ async function carregarHistorico(idProduto) {
   historicoList.innerHTML = "";
 
   try {
-    const response = await fetch(`http://localhost:5000/produtos/${idProduto}/historico`);
+    const response = await fetch(
+      `http://localhost:5000/produtos/${idProduto}/historico`
+    );
     if (!response.ok) throw new Error("Erro ao buscar histórico");
 
     const registros = await response.json();
@@ -242,13 +257,13 @@ async function carregarHistorico(idProduto) {
 
     registros.forEach((r) => {
       const li = document.createElement("li");
-      li.textContent = `Quantidade: ${r.quantidade || "-"} | Data: ${new Date(r.data_registro).toLocaleString()}`;
+      li.textContent = `Quantidade: ${r.quantidade || "-"} | Data: ${new Date(
+        r.data_registro
+      ).toLocaleString()}`;
       historicoList.appendChild(li);
     });
-
   } catch (err) {
     console.error(err);
     historicoList.innerHTML = "<li>Erro ao carregar histórico</li>";
   }
 }
-

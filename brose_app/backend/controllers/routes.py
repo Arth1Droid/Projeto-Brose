@@ -83,3 +83,17 @@ def register_routes(app, produto_service: ProdutoService):
             return jsonify(registros), 200
         except ValueError as e:
             return jsonify({"erro": str(e)}), 404
+        
+    @app.route('/produtos/<int:id_produto>', methods=['GET'])
+    def rota_obter_produto(id_produto):
+        try:
+            produto = produto_service.repository.get_by_id(id_produto)
+            if not produto:
+                return jsonify({'erro': 'Produto não encontrado.'}), 404
+
+            return jsonify(produto.to_json()), 200
+
+        except Exception as e:
+            print(f"Erro inesperado ao buscar produto: {e}")
+            return jsonify({'erro': 'Erro interno no servidor.'}), 500
+
