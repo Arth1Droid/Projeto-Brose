@@ -68,6 +68,7 @@ async function cadastrarProduto() {
 
     // Atualiza lista de produtos
     if (window.loadProducts) window.loadProducts();
+    window.hideModal(cadastroModal)
   } catch (err) {
     console.error(err);
     alert("Erro na conexão com o servidor!");
@@ -225,6 +226,8 @@ document.addEventListener("DOMContentLoaded", () => {
               const qtdSpanCard = card.querySelector(".contador-numero");
               if (qtdSpanCard) qtdSpanCard.textContent = novaQuantidade;
             }
+            carregarHistorico(produtoAtual.id_produto);
+
           } catch (err) {
             console.error(err);
             alert("Erro ao atualizar quantidade");
