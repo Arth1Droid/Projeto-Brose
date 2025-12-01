@@ -8,7 +8,8 @@ class Produto(db.Model):
     quantidade = db.Column(db.Integer)
     descricao = db.Column(db.String(100))
 
-    registros = db.relationship('Registra', backref='produto', lazy=True)
+    registros = db.relationship('Registra', backref='produto', lazy=True, cascade="all, delete-orphan",
+    passive_deletes=True)
 
     def to_json(self):
         return {
