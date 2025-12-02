@@ -2,7 +2,7 @@ import sys
 import os
 
 # Caminho absoluto até a pasta RAIZ do projeto:
-ROOT_PATH = r"C:/Users/Beatriz/Projeto-Brose/Projeto-Brose"
+ROOT_PATH = r"C:/Users/Beatriz/Desktop/Brose Projeto/Projeto-Brose"
 
 # Garante que o Python consiga importar brose_app
 if ROOT_PATH not in sys.path:
@@ -23,7 +23,7 @@ from brose_app.backend.models.Produto_model import Produto
 
 # Caminho REAL do banco usado pelo backend
 engine = create_engine(
-    r"sqlite:///C:/Users/Beatriz/Projeto-Brose/Projeto-Brose/brose_app/backend/data/instance/brose.db"
+    r"sqlite:///C:/Users/Beatriz/Desktop/Brose Projeto/Projeto-Brose/brose_app/backend/data/instance/brose.db"
 )
 Session = sessionmaker(bind=engine, expire_on_commit=False)
 session = Session()
